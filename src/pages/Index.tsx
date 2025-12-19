@@ -6,6 +6,9 @@ import { useState } from "react";
 
 const Index = () => {
   const [selectedCountry, setSelectedCountry] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("numbers");
+
+  const telegramLink = "https://t.me/straxdoksmaks";
 
   const countries = [
     { code: "all", name: "Все страны", flag: "🌍" },
@@ -13,58 +16,92 @@ const Index = () => {
     { code: "gb", name: "Великобритания", flag: "🇬🇧" },
     { code: "de", name: "Германия", flag: "🇩🇪" },
     { code: "fr", name: "Франция", flag: "🇫🇷" },
-    { code: "it", name: "Италия", flag: "🇮🇹" },
+    { code: "tr", name: "Турция", flag: "🇹🇷" },
+    { code: "cn", name: "Китай", flag: "🇨🇳" },
   ];
 
   const numbers = [
     {
       id: 1,
       country: "us",
-      number: "+1 (555) 123-4567",
-      price: "15 000 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      name: "США",
+      price: "90 ₽",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Моментальная активация"],
       popular: true,
     },
     {
       id: 2,
       country: "gb",
-      number: "+44 20 1234 5678",
-      price: "12 000 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      name: "Великобритания",
+      price: "150 ₽",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Моментальная активация"],
       popular: false,
     },
     {
       id: 3,
       country: "de",
-      number: "+49 30 12345678",
-      price: "10 000 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      name: "Германия",
+      price: "Договорная",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Индивидуальные условия"],
       popular: false,
     },
     {
       id: 4,
       country: "fr",
-      number: "+33 1 23 45 67 89",
-      price: "11 000 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      name: "Франция",
+      price: "80 ₽",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Моментальная активация"],
       popular: false,
     },
     {
       id: 5,
-      country: "it",
-      number: "+39 06 1234 5678",
-      price: "9 500 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      country: "tr",
+      name: "Турция",
+      price: "110 ₽",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Моментальная активация"],
       popular: false,
     },
     {
       id: 6,
-      country: "us",
-      number: "+1 (555) 987-6543",
-      price: "16 000 ₽",
-      features: ["SMS подтверждение", "Голосовые вызовы", "Telegram Premium"],
+      country: "cn",
+      name: "Китай",
+      price: "Договорная",
+      features: ["SMS подтверждение", "Голосовые вызовы", "Индивидуальные условия"],
       popular: true,
     },
+  ];
+
+  const premiumPlans = [
+    {
+      id: 1,
+      duration: "3 месяца",
+      price: "1 450 ₽",
+      features: ["Все функции Premium", "Эксклюзивные стикеры", "Увеличенные лимиты"],
+      popular: false,
+    },
+    {
+      id: 2,
+      duration: "6 месяцев",
+      price: "1 850 ₽",
+      features: ["Все функции Premium", "Эксклюзивные стикеры", "Увеличенные лимиты", "Экономия 15%"],
+      popular: true,
+    },
+    {
+      id: 3,
+      duration: "1 год",
+      price: "3 350 ₽",
+      features: ["Все функции Premium", "Эксклюзивные стикеры", "Увеличенные лимиты", "Экономия 25%"],
+      popular: false,
+    },
+  ];
+
+  const starsPackages = [
+    { id: 1, stars: 50, price: "80 ₽" },
+    { id: 2, stars: 100, price: "160 ₽" },
+    { id: 3, stars: 200, price: "320 ₽" },
+    { id: 4, stars: 500, price: "800 ₽" },
+    { id: 5, stars: 1000, price: "1 600 ₽" },
+    { id: 6, stars: 2500, price: "4 000 ₽" },
   ];
 
   const reviews = [
@@ -190,66 +227,179 @@ const Index = () => {
       <section id="catalog" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Каталог номеров</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Каталог товаров</h2>
             <p className="text-muted-foreground text-lg">
-              Выберите страну и получите номер за несколько минут
+              Выберите категорию и получите товар за несколько минут
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center mb-12 animate-scale-in">
-            {countries.map((country) => (
-              <Button
-                key={country.code}
-                variant={selectedCountry === country.code ? "default" : "outline"}
-                className={
-                  selectedCountry === country.code
-                    ? "gradient-gold text-background border-0"
-                    : "border-white/20 hover:bg-white/5"
-                }
-                onClick={() => setSelectedCountry(country.code)}
-              >
-                <span className="mr-2 text-xl">{country.flag}</span>
-                {country.name}
-              </Button>
-            ))}
+            <Button
+              variant={selectedCategory === "numbers" ? "default" : "outline"}
+              className={
+                selectedCategory === "numbers"
+                  ? "gradient-gold text-background border-0"
+                  : "border-white/20 hover:bg-white/5"
+              }
+              onClick={() => setSelectedCategory("numbers")}
+            >
+              <Icon name="Phone" className="mr-2" size={20} />
+              Физические номера
+            </Button>
+            <Button
+              variant={selectedCategory === "premium" ? "default" : "outline"}
+              className={
+                selectedCategory === "premium"
+                  ? "gradient-gold text-background border-0"
+                  : "border-white/20 hover:bg-white/5"
+              }
+              onClick={() => setSelectedCategory("premium")}
+            >
+              <Icon name="Crown" className="mr-2" size={20} />
+              Telegram Premium
+            </Button>
+            <Button
+              variant={selectedCategory === "stars" ? "default" : "outline"}
+              className={
+                selectedCategory === "stars"
+                  ? "gradient-gold text-background border-0"
+                  : "border-white/20 hover:bg-white/5"
+              }
+              onClick={() => setSelectedCategory("stars")}
+            >
+              <Icon name="Star" className="mr-2" size={20} />
+              Telegram Stars
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNumbers.map((number, index) => (
-              <Card
-                key={number.id}
-                className="glass p-6 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {number.popular && (
-                  <Badge className="absolute top-4 right-4 gradient-blue text-white border-0">
-                    <Icon name="TrendingUp" size={14} className="mr-1" />
-                    Популярно
-                  </Badge>
-                )}
-                <div className="text-4xl mb-4 animate-float">
-                  {countries.find((c) => c.code === number.country)?.flag}
-                </div>
-                <h3 className="text-2xl font-bold mb-2">{number.number}</h3>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-3xl font-bold text-gradient">{number.price}</span>
-                  <span className="text-muted-foreground">/ месяц</span>
-                </div>
-                <div className="space-y-2 mb-6">
-                  {number.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm">
-                      <Icon name="Check" size={16} className="text-primary" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                <Button className="w-full gradient-gold text-background font-semibold hover:opacity-90">
-                  Купить номер
+          {selectedCategory === "numbers" && (
+            <div className="flex flex-wrap gap-3 justify-center mb-12 animate-scale-in">
+              {countries.map((country) => (
+                <Button
+                  key={country.code}
+                  variant={selectedCountry === country.code ? "default" : "outline"}
+                  className={
+                    selectedCountry === country.code
+                      ? "gradient-gold text-background border-0"
+                      : "border-white/20 hover:bg-white/5"
+                  }
+                  onClick={() => setSelectedCountry(country.code)}
+                >
+                  <span className="mr-2 text-xl">{country.flag}</span>
+                  {country.name}
                 </Button>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              </Card>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
+
+          {selectedCategory === "numbers" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredNumbers.map((number, index) => (
+                <Card
+                  key={number.id}
+                  className="glass p-6 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {number.popular && (
+                    <Badge className="absolute top-4 right-4 gradient-blue text-white border-0">
+                      <Icon name="TrendingUp" size={14} className="mr-1" />
+                      Популярно
+                    </Badge>
+                  )}
+                  <div className="text-4xl mb-4 animate-float">
+                    {countries.find((c) => c.code === number.country)?.flag}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{number.name}</h3>
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <span className="text-3xl font-bold text-gradient">{number.price}</span>
+                  </div>
+                  <div className="space-y-2 mb-6">
+                    {number.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm">
+                        <Icon name="Check" size={16} className="text-primary" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    className="w-full gradient-gold text-background font-semibold hover:opacity-90"
+                    onClick={() => window.open(telegramLink, "_blank")}
+                  >
+                    Купить номер
+                  </Button>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {selectedCategory === "premium" && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {premiumPlans.map((plan, index) => (
+                <Card
+                  key={plan.id}
+                  className="glass p-8 hover:scale-105 transition-all duration-300 relative overflow-hidden group text-center"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {plan.popular && (
+                    <Badge className="absolute top-4 right-4 gradient-blue text-white border-0">
+                      <Icon name="TrendingUp" size={14} className="mr-1" />
+                      Популярно
+                    </Badge>
+                  )}
+                  <div className="w-16 h-16 gradient-gold rounded-2xl flex items-center justify-center mx-auto mb-4 animate-float">
+                    <Icon name="Crown" size={32} className="text-background" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{plan.duration}</h3>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-gradient">{plan.price}</span>
+                  </div>
+                  <div className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm">
+                        <Icon name="Check" size={16} className="text-primary" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    className="w-full gradient-gold text-background font-semibold hover:opacity-90"
+                    onClick={() => window.open(telegramLink, "_blank")}
+                  >
+                    Купить Premium
+                  </Button>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {selectedCategory === "stars" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {starsPackages.map((pkg, index) => (
+                <Card
+                  key={pkg.id}
+                  className="glass p-6 hover:scale-105 transition-all duration-300 relative overflow-hidden group text-center"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="w-16 h-16 gradient-blue rounded-2xl flex items-center justify-center mx-auto mb-4 animate-float">
+                    <Icon name="Star" size={32} className="text-white" />
+                  </div>
+                  <h3 className="text-3xl font-bold mb-2">{pkg.stars} ⭐</h3>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-gradient">{pkg.price}</span>
+                  </div>
+                  <Button
+                    className="w-full gradient-gold text-background font-semibold hover:opacity-90"
+                    onClick={() => window.open(telegramLink, "_blank")}
+                  >
+                    Купить Stars
+                  </Button>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
