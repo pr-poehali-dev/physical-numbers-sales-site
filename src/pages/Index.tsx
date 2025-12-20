@@ -540,7 +540,7 @@ const Index = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground transition-colors">
+                  <a href="#" className="https://t.me/KASHMANISHOP">
                     Telegram
                   </a>
                 </li>
